@@ -841,11 +841,9 @@ class GPIOEdison(GPIOBase):
         self.pwm_periods = {}
         for pin in self.PWM_MAPPING.keys():
             self.pwm_periods[pin] = self.PWM_DEFAULT_PERIOD
-        # Set SPI pins into a valid state so ADC will work.
-	self.pinMode(10,'in')
-	self.pinMode(11,'in')
-	self.pinMode(12,'in')
-	self.pinMode(13,'in')
+        # Set all pins into a safe state at startup.
+        for i in range(0,20):
+	    self.pinMode(i, INPUT)
 
     def _set_pwm_period(self, pin, period):
         self.pwm_periods[pin] = period
